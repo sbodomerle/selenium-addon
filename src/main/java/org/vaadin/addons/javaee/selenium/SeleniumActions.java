@@ -25,6 +25,12 @@ import org.vaadin.addons.javaee.selenium.po.ConfirmDialogPO;
  */
 public class SeleniumActions {
 
+    private static final String TD = "]/td[";
+
+    private static final String DIV_CONTAINS_CLASS_V_TABLE_BODY_TR = "']//div[contains(@class, 'v-table-body')]//tr[";
+
+    private static final String DIV_ID = "//div[@id='";
+
     private static Logger log = LoggerFactory.getLogger(SeleniumActions.class);
 
     private WebDriver driver;
@@ -65,8 +71,7 @@ public class SeleniumActions {
      * Clicks the button located at the given table at the given row and column.
      */
     public void clickTableButton(String tableName, int row, int col) {
-        String xpath = "//div[@id='" + tableName + "']//div[contains(@class, 'v-table-body')]//tr[" + row + "]/td[" + col
-                + "]//div[contains(@class, 'v-button')]";
+        String xpath = getCellItemXPath(tableName, row, col, "v-button");
         WebElement button = driver.findElement(By.xpath(xpath));
         button.click();
         WaitConditions.waitForVaadin(driver);
@@ -116,6 +121,19 @@ public class SeleniumActions {
         } catch (Exception e) {
             log.error("Could not save file", e);
         }
+    }
+
+    /**
+     * Format an XPath to get a cell element.
+     * @param tableName The ID of the table element.
+     * @param row The selected row index.
+     * @param col The selected column index.
+     * @param itemClass The CSS class of the target element
+     * @return Formatted XPath string
+     */
+    private String getCellItemXPath(String tableName, int row, int col, String itemClass) {
+        return DIV_ID + tableName + DIV_CONTAINS_CLASS_V_TABLE_BODY_TR + row + TD + col
+                + "]//div[contains(@class, '" + itemClass + "')]";
     }
 
 }
