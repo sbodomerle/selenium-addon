@@ -124,6 +124,20 @@ public class SeleniumActions {
     }
 
     /**
+     * Clicks the button located at the given table at the given row and column.
+     * @param tableName The ID of the table element.
+     * @param row The selected row index.
+     * @param col The selected column index.
+     * @param className CSS class of the clicked element.
+     */
+    public void clickTableCellItemByClassName(String tableName, int row, int col, String className) {
+        final String xpath = getCellItemXPath(tableName, row, col, className);
+        final WebElement button = driver.findElement(By.xpath(xpath));
+        button.click();
+        WaitConditions.waitForVaadin(driver);
+    }
+
+    /**
      * Format an XPath to get a cell element.
      * @param tableName The ID of the table element.
      * @param row The selected row index.
