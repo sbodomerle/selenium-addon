@@ -166,6 +166,15 @@ public class SeleniumActions {
     }
 
     /**
+     * Clicks on the Close button at top right corner.
+     */
+    public void closeDialog() {
+        final WebElement button = driver.findElement(By.cssSelector(".v-window-closebox"));
+        button.click();
+        WaitConditions.waitForVaadin(driver);
+    }
+
+    /**
      * Format an XPath to get a cell element.
      * @param tableName The ID of the table element.
      * @param row The selected row index.
