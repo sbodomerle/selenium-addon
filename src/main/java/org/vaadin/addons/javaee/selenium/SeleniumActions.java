@@ -138,6 +138,20 @@ public class SeleniumActions {
     }
 
     /**
+     * Clicks the button located at the given table at the given row and column.
+     * @param tableName The ID of the table element.
+     * @param row The selected row index.
+     * @param col The selected column index.
+     */
+    public void clickTreeTableCell(String tableName, int row, int col) {
+        final String xpath = DIV_ID + tableName + DIV_CONTAINS_CLASS_V_TABLE_BODY_TR + row + TD + col
+                + "]//div[contains(@class, 'v-table-cell-wrapper')]//span[contains(@class, 'v-treetable-treespacer')]";
+        final WebElement button = driver.findElement(By.xpath(xpath));
+        button.click();
+        WaitConditions.waitForVaadin(driver);
+    }
+
+    /**
      * Format an XPath to get a cell element.
      * @param tableName The ID of the table element.
      * @param row The selected row index.
